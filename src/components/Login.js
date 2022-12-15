@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -70,7 +70,7 @@ const Login = () => {
               style={{
                 backgroundColor: "#FFAF00",
                 border: "none",
-                width: "90%",
+                width: "100%",
               }}
               variant="primary"
               type="submit"

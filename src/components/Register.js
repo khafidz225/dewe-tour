@@ -102,7 +102,7 @@ const Register = () => {
               style={{
                 backgroundColor: "#FFAF00",
                 border: "none",
-                width: "90%",
+                width: "100%",
               }}
               type="submit"
               variant="primary"
