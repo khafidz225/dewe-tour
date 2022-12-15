@@ -1,8 +1,8 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
 import Logo from "../images/Icon.png";
 import Login from "./Login";
+import Register from "./Register";
 import Container from "react-bootstrap/Container";
 
 const NavbarBg = () => {
@@ -16,16 +16,7 @@ const NavbarBg = () => {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Login />
-            <Button
-              className="btn-log"
-              style={{
-                backgroundColor: "#FFAF00",
-                marginLeft: "15px",
-                border: "none",
-              }}
-            >
-              Register
-            </Button>
+            <Register />
           </Navbar.Collapse>
         </Container>
       </Navbar>

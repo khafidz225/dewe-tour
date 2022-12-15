@@ -1,36 +1,44 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from "react";
+import { React, useState } from "react";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
-const Login = () => {
+const Register = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // const [datas, setDatas] = useState({});
-  // const updateDatas = (e) => {
-  //   setDatas({
-  //     ...datas,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-  // const submit = (e) => {
-  //   e.preventDefault();
+  const [datas, setDatas] = useState({});
+  const updateDatas = (e) => {
+    setDatas({
+      ...datas,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const submit = (e) => {
+    e.preventDefault();
 
-  //   localStorage.setItem("datas", JSON.stringify(datas));
-  //   console.log(datas);
-  // };
-
-  // console.log(datas);
+    localStorage.setItem("datas", JSON.stringify(datas));
+    console.log(datas);
+  };
+  console.log(datas);
 
   return (
     <div>
-      <Button onClick={handleShow} variant="outline-light" className="btn-log">
-        Login
+      <Button
+        onClick={handleShow}
+        className="btn-log"
+        style={{
+          backgroundColor: "#FFAF00",
+          marginLeft: "15px",
+          border: "none",
+        }}
+      >
+        Register
       </Button>
-      <Modal className="mt-5" show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
         <div
           style={{ width: "100%" }}
           className="d-flex justify-content-between"
@@ -46,13 +54,27 @@ const Login = () => {
           style={{ marginTop: "-50px" }}
           className="text-center fw-bold"
         >
-          Login
+          Register
         </Modal.Title>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={submit}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label className="fw-bold mt-3">Full Name</Form.Label>
+              <Form.Control
+                name="fullName"
+                onChange={updateDatas}
+                type="text"
+                autoFocus
+              />
+            </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label className="fw-bold mt-3">Email</Form.Label>
-              <Form.Control name="email" type="email" autoFocus />
+              <Form.Control
+                name="email"
+                onChange={updateDatas}
+                type="email"
+                autoFocus
+              />
             </Form.Group>
             <Form.Group
               className="mb-3"
@@ -61,8 +83,18 @@ const Login = () => {
               <Form.Label className="fw-bold mt-3">Password</Form.Label>
               <Form.Control
                 name="password"
+                onChange={updateDatas}
                 type="password"
                 placeholder="Password"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label className="fw-bold mt-3">Phone</Form.Label>
+              <Form.Control
+                name="phone"
+                onChange={updateDatas}
+                type="number"
+                autoFocus
               />
             </Form.Group>
             <Button
@@ -72,15 +104,15 @@ const Login = () => {
                 border: "none",
                 width: "90%",
               }}
-              variant="primary"
               type="submit"
+              variant="primary"
             >
-              Login
+              Register
             </Button>
           </Form>
         </Modal.Body>
         <p className="text-center p-1 mt-1" style={{ color: "#B1B1B1" }}>
-          Don't have an account?
+          You have an account?
           <a
             className="text-decoration-none"
             style={{ color: "#B1B1B1" }}
@@ -94,4 +126,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
