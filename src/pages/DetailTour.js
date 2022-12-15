@@ -8,6 +8,7 @@ import australia4 from "../images/australia4.png";
 import InfoTrip from "../components/InfoTrip";
 import NavbarBg from "../components/NavbarBg";
 import { dataTour } from "../dataTour";
+import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
 import "../index.css";
 
@@ -18,6 +19,21 @@ const DetailTour = () => {
   console.log(useParams(data.id));
 
   const [Number, SetNumber] = useState(0);
+  function Add() {
+    SetNumber(Number + 1);
+  }
+  function Less() {
+    if (Number > 0) {
+      SetNumber(Number - 1);
+    }
+  }
+
+  // const Add = () => SetNumber(Number + 1)
+  // const Less = () => {
+  //   if(Number > 0){
+  //     SetNumber(Number - 1)
+  //   }
+  // }
 
   return (
     <>
@@ -73,16 +89,13 @@ const DetailTour = () => {
                   Person
                 </p>
                 <div className="d-flex">
-                  <button
-                    className="border-0 bg-transparent"
-                    onClick={() => SetNumber(Number - 1)}
-                  >
+                  <button className="border-0 bg-transparent" onClick={Less}>
                     <img src={require("../images/Minus.png")} alt="Minus" />
                   </button>
                   <p className="ms-3 me-3 text-bold fs-4 p-1">{Number}</p>
                   <button
                     className="border-0 bg-transparent"
-                    onClick={() => SetNumber(Number + 1)}
+                    onClick={() => Add()}
                   >
                     <img src={require("../images/Plus.png")} alt="Plus" />
                   </button>
@@ -91,17 +104,29 @@ const DetailTour = () => {
               <div className="d-flex justify-content-between pt-2 fs-3 fw-bold border-bottom border-dark">
                 <p>Total :</p>
                 <NumericFormat
-                  value="20020220"
-                  allowLeadingZeros
+                  className="text-end"
+                  style={{ border: "none", background: "none" }}
+                  value={12398000 * Number}
                   thousandSeparator=","
                   prefix={"IDR. "}
                 />
-                <p>{`IDR. ${12398000 * Number}`}</p>
               </div>
-              <button>Book Now</button>
+              <div className="d-flex justify-content-end">
+                <button
+                  className="btn mt-5 mb-5"
+                  style={{
+                    backgroundColor: "#FFAF00",
+                    color: "white",
+                    width: "213px",
+                  }}
+                >
+                  Book Now
+                </button>
+              </div>
             </Container>
           )
       )}
+      <Footer />
     </>
   );
 };
