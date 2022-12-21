@@ -27,7 +27,7 @@ const Header = () => {
             />
             <Button
               variant="outline-secondary"
-              className="btn"
+              className="btn fw-bold"
               style={{
                 backgroundColor: "#FFAF00",
                 padding: "10px",
@@ -37,7 +37,7 @@ const Header = () => {
               }}
               id="button-addon2"
             >
-              Button
+              Search
             </Button>
           </InputGroup>
         </Container>

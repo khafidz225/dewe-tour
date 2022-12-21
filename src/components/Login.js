@@ -1,36 +1,70 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable array-callback-return */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleCloseLog = () => setShow(false);
+  const handleShowLog = () => setShow(true);
 
-  // const [datas, setDatas] = useState({});
-  // const updateDatas = (e) => {
-  //   setDatas({
-  //     ...datas,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-  // const submit = (e) => {
-  //   e.preventDefault();
+  const navigate = useNavigate();
 
-  //   localStorage.setItem("datas", JSON.stringify(datas));
-  //   console.log(datas);
-  // };
+  const [Login, setLogin] = useState({});
+  const updateLogin = (e) => {
+    setLogin({
+      ...Login,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  // console.log(datas);
+  const submit = (e) => {
+    e.preventDefault();
+    const dataRegs = JSON.parse(localStorage.getItem("dataReg"));
+    dataRegs.map((data) => {
+      if (data.email == Login.email && data.password == Login.password) {
+        return (
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Successful Login",
+            showConfirmButton: false,
+            timer: 5000,
+          }),
+          localStorage.setItem("Login", JSON.stringify(data)),
+          handleCloseLog(),
+          setInterval(() => {
+            navigate(0);
+          }, 2000)
+        );
+      }
+      if (data.email !== Login.email && data.password !== Login.password) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Incorrect Email/Password",
+          showConfirmButton: false,
+          timer: 5000,
+        });
+      }
+    });
+  };
 
   return (
     <div>
-      <Button onClick={handleShow} variant="outline-light" className="btn-log">
+      <Button
+        onClick={handleShowLog}
+        variant="outline-light"
+        className="btn-log"
+      >
         Login
       </Button>
-      <Modal className="mt-5" show={show} onHide={handleClose}>
+      <Modal className="mt-5" show={show} onHide={handleCloseLog}>
         <div
           style={{ width: "100%" }}
           className="d-flex justify-content-between"
@@ -49,10 +83,15 @@ const Login = () => {
           Login
         </Modal.Title>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={submit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label className="fw-bold mt-3">Email</Form.Label>
-              <Form.Control name="email" type="email" autoFocus />
+              <Form.Control
+                name="email"
+                onChange={updateLogin}
+                type="email"
+                autoFocus
+              />
             </Form.Group>
             <Form.Group
               className="mb-3"
@@ -62,6 +101,7 @@ const Login = () => {
               <Form.Control
                 name="password"
                 type="password"
+                onChange={updateLogin}
                 placeholder="Password"
               />
             </Form.Group>

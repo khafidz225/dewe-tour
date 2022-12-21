@@ -42,11 +42,14 @@ body {
 }
 .container-tour {
   display: grid;
-  row-gap: 20px;
+  row-gap: 50px;
+  margin-left: 65px;
+  /* gap: 20px; */
   grid-template-columns: auto auto auto;
 }
 .leaf {
   bottom: 1px;
+  /* background-color: #bbffb1; */
 }
 .detailNav {
   background-image: linear-gradient(

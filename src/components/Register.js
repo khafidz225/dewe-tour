@@ -4,31 +4,50 @@ import { React, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleCloseReg = () => setShow(false);
+  const handleShowReg = () => setShow(true);
 
-  const [datas, setDatas] = useState({});
+  const Navigate = useNavigate();
+
+  const [Register, setRegister] = useState([]);
   const updateDatas = (e) => {
-    setDatas({
-      ...datas,
+    setRegister({
+      ...Register,
       [e.target.name]: e.target.value,
     });
   };
   const submit = (e) => {
     e.preventDefault();
 
-    localStorage.setItem("datas", JSON.stringify(datas));
-    console.log(datas);
+    let dataReg = [];
+    const data = localStorage.getItem("dataReg");
+    if (data !== null) {
+      dataReg = JSON.parse(data);
+    }
+    dataReg.push(Register);
+    localStorage.setItem("dataReg", JSON.stringify(dataReg));
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Successfully Create an account",
+      showConfirmButton: false,
+      timer: 5000,
+    });
+    setInterval(() => {
+      Navigate(0);
+    }, 2000);
+    console.log(Register);
   };
-  console.log(datas);
 
   return (
     <div>
       <Button
-        onClick={handleShow}
+        onClick={handleShowReg}
         className="btn-log"
         style={{
           backgroundColor: "#FFAF00",
@@ -38,7 +57,7 @@ const Register = () => {
       >
         Register
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleCloseReg}>
         <div
           style={{ width: "100%" }}
           className="d-flex justify-content-between"
@@ -95,6 +114,15 @@ const Register = () => {
                 onChange={updateDatas}
                 type="number"
                 autoFocus
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label className="fw-bold mt-3">Address</Form.Label>
+              <Form.Control
+                name="address"
+                onChange={updateDatas}
+                as="textarea"
+                style={{ height: "50px" }}
               />
             </Form.Group>
             <Button
